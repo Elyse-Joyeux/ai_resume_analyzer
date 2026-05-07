@@ -1,4 +1,6 @@
-import React from 'react'
+export const meta: ()=>any = ()=>([
+    
+])
 
 const Auth = () => {
   return (
