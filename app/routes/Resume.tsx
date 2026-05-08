@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router";
 import { Link } from "react-router";
 import { usePuterStore } from "~/lib/puter";
 import { useEffect, useState } from "react";
-import Summary from '../components/Summaru'
+import Summary from '../components/Summary'
 import ATS from '../components/ATS'
 import Details from '../components/Details'
 
