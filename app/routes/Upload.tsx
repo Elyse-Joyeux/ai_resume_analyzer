@@ -5,6 +5,7 @@ import {usePuterStore} from '~/lib/puter'
 import {useNavigate} from 'react-router'
 import {convertPdfToImage} from '~/lib/pdf2image'
 import {generateUUID} from '~/lib/utils'
+import {prepareInstructions} from '../../constants'
 
 
 const Upload = () => {
@@ -36,7 +37,10 @@ const Upload = () => {
 
     setStatusText('Converting to image...')
     const imageFile = await convertPdfToImage(file)
-    if(!imageFile.file) return setStatusText('Error: Failed to convert PDF to Image')
+    if(!imageFile.file) {
+      console.error(imageFile.error)
+      return setStatusText(imageFile.error ?? 'Error: Failed to convert PDF to Image')
+    }
 
     setStatusText('Uploading the image...');
     const uploadedImage = await fs.upload([imageFile.file])
@@ -48,7 +52,7 @@ const Upload = () => {
     const data = {
       id: uuid, 
       resumePath: uploadedFile.path,
-      imagePath: uploadedFile.path,
+      imagePath: uploadedImage.path,
       companyName, jobTitle, jobDescription,
       feedback: '',
     }
@@ -56,10 +60,20 @@ const Upload = () => {
     setStatusText('Analyzing...')
     const feedback = await ai.feedback(
       uploadedFile.path,
-      `You are an expert in ATS(Applicant Tracking System) and resume analysis...`
+      prepareInstructions({companyName, jobTitle, jobDescription})
     )
-
-    console.log({ companyName, jobTitle, jobDescription, file });
+    if(!feedback) return setStatusText('Error: Failed to analyze resume')
+    
+    const feedbackText = typeof feedback.message.content === 'string'
+      ? feedback.message.content
+      : feedback.message.content[0].text
+    
+    data.feedback = JSON.parse(feedbackText)
+    await kv.set(`resume:${uuid}`, JSON.stringify(data))
+    setStatusText('Analysis complete, redirecting...')
+    console.log(data)
+    navigate('/')
+    
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
