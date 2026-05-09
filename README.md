@@ -1,87 +1,158 @@
-# Welcome to React Router!
+# Resumind
 
-A modern, production-ready template for building full-stack React applications using React Router.
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+Resumind is a React Router resume review app that lets users upload a PDF resume, provide job details, and receive AI-assisted feedback for ATS readiness, tone, content, structure, and skills.
 
 ## Features
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- PDF resume upload with drag-and-drop support
+- First-page PDF preview generation using PDF.js
+- Puter authentication, file storage, key-value storage, and AI feedback
+- Resume dashboard with previous reviews
+- Detailed review page with ATS suggestions and category breakdowns
+- Light and dark mode
+- Wipe Data page for clearing uploaded files and stored review records
+- Responsive UI built with React, React Router, Tailwind CSS, and custom CSS tokens
+
+## Tech Stack
+
+- React 19
+- React Router 7
+- TypeScript
+- Tailwind CSS
+- Zustand
+- Puter.js
+- PDF.js
+- Vite
+
+## Project Structure
+
+```text
+app/
+  components/        Reusable UI components
+  lib/               Puter, PDF, and utility helpers
+  routes/            React Router route screens
+constants/           AI prompt and sample resume constants
+public/assets/       Images, icons, PDF worker, and static assets
+types/               Shared TypeScript declarations
+```
 
 ## Getting Started
 
-### Installation
-
-Install the dependencies:
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-### Development
-
-Start the development server with HMR:
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+Open the app in your browser:
 
-## Building for Production
+```text
+http://localhost:5173
+```
 
-Create a production build:
+If another dev server is already using that port, React Router/Vite may use another port.
+
+## Available Scripts
+
+```bash
+npm run dev
+```
+
+Runs the app locally with hot reload.
+
+```bash
+npm run typecheck
+```
+
+Generates React Router types and runs TypeScript checks.
 
 ```bash
 npm run build
 ```
 
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
+Creates a production build.
 
 ```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+npm run start
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+Serves the built app.
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
+## Main Routes
 
-### DIY Deployment
+- `/` - Dashboard and resume history
+- `/auth` - Puter login flow
+- `/upload` - Resume upload and AI analysis
+- `/resume/:id` - Detailed resume review
+- `/wipe` - Clear stored app data
 
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
+## Puter Integration
 
-Make sure to deploy the output of `npm run build`
+The app uses Puter for:
 
+- Authentication
+- File uploads and reads
+- Key-value storage for resume review records
+- AI chat feedback
+
+The Puter script is loaded in `app/root.tsx`:
+
+```html
+<script src="https://js.puter.com/v2/"></script>
 ```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+
+## PDF Worker
+
+PDF conversion depends on `public/assets/pdf.worker.min.mjs`. This worker must match the installed `pdfjs-dist` package version. If PDF conversion fails with an API/worker mismatch, replace the public worker with:
+
+```bash
+copy node_modules\pdfjs-dist\build\pdf.worker.min.mjs public\assets\pdf.worker.min.mjs
 ```
 
-## Styling
+On macOS/Linux:
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+```bash
+cp node_modules/pdfjs-dist/build/pdf.worker.min.mjs public/assets/pdf.worker.min.mjs
+```
 
----
+## Data Reset
 
-Built with ❤️ using React Router.
+Use the Wipe Data page at `/wipe` to delete uploaded files and flush saved review records. The page asks for confirmation before clearing data.
+
+## Docker
+
+Build the image:
+
+```bash
+docker build -t resumind .
+```
+
+Run the container:
+
+```bash
+docker run -p 3000:3000 resumind
+```
+
+## Troubleshooting
+
+If icons do not appear, confirm asset paths use `/assets/icons/...`.
+
+If dark mode text is hard to read, avoid hard-coded classes like `text-black`, `bg-white`, and `text-gray-*` in shared UI. Prefer theme-aware classes such as `text-muted`, `review-card`, or CSS variables from `app/app.css`.
+
+If upload redirects fail, run:
+
+```bash
+npm run typecheck
+```
+
+React Router route file casing matters. The route config should match the actual filenames.
+
+## Copyright
+
+Copyright © 2026 Resumind. All rights reserved.
