@@ -24,6 +24,10 @@ Resumind is a React Router resume review app that lets users upload a PDF resume
 - PDF.js
 - Vite
 
+## Author
+
+Built by Elyse Joyeux.
+
 ## Project Structure
 
 ```text
