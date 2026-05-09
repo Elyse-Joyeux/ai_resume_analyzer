@@ -73,6 +73,12 @@ export default function Home() {
               >
                 Upload Resume
               </Link>
+              <Link
+                to="/wipe"
+                className="secondary-button w-fit text-lg font-semibold"
+              >
+                Wipe Data
+              </Link>
             </div>
           </div>
           <div className="hero-preview">
