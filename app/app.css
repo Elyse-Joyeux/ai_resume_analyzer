@@ -42,6 +42,10 @@ body {
   min-height: 100%;
 }
 
+html {
+  font-size: 99%;
+}
+
 body {
   font-family: "Inter", sans-serif;
   background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.14), transparent 22%),
@@ -220,6 +224,86 @@ a {
   backdrop-filter: blur(18px);
 }
 
+html.dark .navbar {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.88), rgba(30, 41, 59, 0.78));
+  border-color: rgba(148, 163, 184, 0.22);
+  box-shadow: 0 30px 90px rgba(2, 6, 23, 0.5);
+}
+
+.app-footer {
+  width: min(100%, 96rem);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 2rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.secondary-button,
+.danger-button {
+  border-radius: 9999px;
+  padding: 0.875rem 1.35rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  transition: transform 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.secondary-button {
+  color: var(--text);
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+}
+
+.danger-button {
+  color: #fff;
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  border: 1px solid rgba(248, 113, 113, 0.45);
+  box-shadow: 0 24px 60px rgba(220, 38, 38, 0.22);
+}
+
+.secondary-button:hover,
+.danger-button:hover {
+  transform: translateY(-1px);
+}
+
+.secondary-button:disabled,
+.danger-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+  transform: none;
+}
+
+.danger-zone {
+  display: grid;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+.wipe-file-list {
+  display: grid;
+  gap: 0.75rem;
+  max-height: 20rem;
+  overflow: auto;
+  padding-right: 0.25rem;
+}
+
+.wipe-file-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 1rem;
+  color: var(--text);
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+}
+
 .resume-nav,
 .page-header,
 .upload-header,
@@ -260,8 +344,9 @@ html.dark .uploader-selected-file {
   gap: 0.75rem;
   padding: 0.75rem 1rem;
   border-radius: 1.25rem;
-  border: 1px solid rgba(229, 231, 235, 0.8);
-  background: rgba(255, 255, 255, 0.9);
+  color: var(--text);
+  border: 1px solid var(--border);
+  background: var(--surface-strong);
   box-shadow: 0 12px 35px rgba(15, 23, 42, 0.05);
 }
 
@@ -335,11 +420,171 @@ html.dark .uploader-selected-file {
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.7);
   box-shadow: 0 40px 80px rgba(15, 23, 42, 0.08);
+  color: var(--text);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.resume-card:hover {
+  border-color: rgba(99, 102, 241, 0.35);
+  transform: translateY(-2px);
 }
 
 html.dark .resume-card {
   background: rgba(15, 23, 42, 0.9);
   border-color: rgba(148, 163, 184, 0.12);
+}
+
+.review-card {
+  width: 100%;
+  border-radius: 1.5rem;
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.1);
+  color: var(--text);
+  overflow: hidden;
+}
+
+.review-muted {
+  color: var(--muted);
+}
+
+.ats-panel {
+  width: 100%;
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.1);
+}
+
+.ats-panel-good {
+  background: linear-gradient(180deg, rgba(209, 250, 229, 0.96), rgba(255, 255, 255, 0.98));
+  border-color: rgba(16, 185, 129, 0.28);
+}
+
+.ats-panel-warning {
+  background: linear-gradient(180deg, rgba(254, 243, 199, 0.96), rgba(255, 255, 255, 0.98));
+  border-color: rgba(245, 158, 11, 0.28);
+}
+
+.ats-panel-bad {
+  background: linear-gradient(180deg, rgba(254, 226, 226, 0.96), rgba(255, 255, 255, 0.98));
+  border-color: rgba(239, 68, 68, 0.28);
+}
+
+html.dark .ats-panel-good {
+  background: linear-gradient(180deg, rgba(6, 78, 59, 0.72), rgba(15, 23, 42, 0.94));
+}
+
+html.dark .ats-panel-warning {
+  background: linear-gradient(180deg, rgba(113, 63, 18, 0.72), rgba(15, 23, 42, 0.94));
+}
+
+html.dark .ats-panel-bad {
+  background: linear-gradient(180deg, rgba(127, 29, 29, 0.72), rgba(15, 23, 42, 0.94));
+}
+
+.tip-summary-grid {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(148, 163, 184, 0.36);
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.06);
+}
+
+html.dark .tip-summary-grid {
+  background: rgba(15, 23, 42, 0.72);
+  border-color: rgba(148, 163, 184, 0.18);
+}
+
+.feedback-summary-text {
+  color: #334155;
+  font-size: 1.125rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+html.dark .feedback-summary-text {
+  color: #e2e8f0;
+}
+
+.feedback-tip-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
+}
+
+.feedback-tip-good {
+  color: #064e3b;
+  background: #ffffff;
+  border: 1px solid rgba(16, 185, 129, 0.45);
+}
+
+.feedback-tip-improve {
+  color: #78350f;
+  background: #ffffff;
+  border: 1px solid rgba(245, 158, 11, 0.5);
+}
+
+html.dark .feedback-tip-good {
+  color: #d1fae5;
+  background: rgba(6, 78, 59, 0.34);
+  border-color: rgba(52, 211, 153, 0.32);
+}
+
+html.dark .feedback-tip-improve {
+  color: #fef3c7;
+  background: rgba(120, 53, 15, 0.34);
+  border-color: rgba(251, 191, 36, 0.35);
+}
+
+.feedback-tip-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.feedback-tip-body {
+  color: #334155;
+  font-weight: 550;
+  line-height: 1.7;
+}
+
+.feedback-tip-good .feedback-tip-body {
+  color: #065f46;
+}
+
+.feedback-tip-improve .feedback-tip-body {
+  color: #92400e;
+}
+
+html.dark .feedback-tip-body,
+html.dark .feedback-tip-good .feedback-tip-body,
+html.dark .feedback-tip-improve .feedback-tip-body {
+  color: currentColor;
+}
+
+.ats-tip-good,
+.ats-tip-improve {
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.ats-tip-good {
+  color: #065f46;
+}
+
+.ats-tip-improve {
+  color: #9a3412;
+}
+
+html.dark .ats-tip-good {
+  color: #bbf7d0;
+}
+
+html.dark .ats-tip-improve {
+  color: #fed7aa;
 }
 
 .resume-card-header {
