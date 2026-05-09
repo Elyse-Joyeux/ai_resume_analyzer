@@ -6,8 +6,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-import {usePuterStore} from '~/lib/puter'
-import {useEffect} from 'react'
+import { usePuterStore } from "~/lib/puter";
+import { useEffect } from "react";
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -26,21 +26,35 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const {init} = usePuterStore()
+  const { init } = usePuterStore();
 
-  useEffect(()=>{
-    init()
-  }, [init])
+  useEffect(() => {
+    init();
+  }, [init]);
 
   return (
-    <html lang="en">
-      <head>
+    <html lang="en" suppressHydrationWarning>
+      <head suppressHydrationWarning>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
       <body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `;(function(){
+              try {
+                const stored = localStorage.getItem('resumind-theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = stored || (prefersDark ? 'dark' : 'light');
+                document.documentElement.classList.add(theme);
+              } catch (e) {
+                console.warn('Theme init failed', e);
+              }
+            })();`,
+          }}
+        />
         <script src="https://js.puter.com/v2/"></script>
 
         {children}
