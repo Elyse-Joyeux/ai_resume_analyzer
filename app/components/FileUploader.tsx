@@ -7,10 +7,13 @@ interface FileUploaderProps {
 }
 
 const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
+  const [error, setError] = useState("");
+
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       const file = acceptedFiles[0] || null;
 
+      setError("");
       onFileSelect?.(file);
     },
     [onFileSelect],
@@ -21,6 +24,10 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
     useDropzone({
       onDrop,
+      onDropRejected: () => {
+        setError(`Please upload one PDF file under ${formatSize(maxFileSize)}.`);
+        onFileSelect?.(null);
+      },
       multiple: false,
       accept: { "application/pdf": [".pdf"] },
       maxSize: maxFileSize,
@@ -33,7 +40,11 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
       <div {...getRootProps()}>
         <input {...getInputProps()} />
 
-        <div className="space-y-4 cursor-pointer">
+        <div
+          className={`uploader-drag-area space-y-4 ${
+            isDragActive ? "uploader-drag-active" : ""
+          }`}
+        >
           {file ? (
             <div
               className="uploader-selected-file"
@@ -52,7 +63,12 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
               </div>
               <button
                 className="p-2 cursor-pointer"
+                type="button"
+                aria-label="Remove selected resume"
                 onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setError("");
                   onFileSelect?.(null);
                 }}
               >
@@ -73,17 +89,21 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
                 />
               </div>
               <p className="text-lg text-gray-500">
-                <span className="font-semibold">Click to upload</span> or drag
-                and drop
+                <span className="font-semibold">
+                  {isDragActive ? "Drop your resume" : "Click to upload"}
+                </span>{" "}
+                {!isDragActive && "or drag and drop"}
               </p>
               <p className="text-lg text-gray-500">
                 PDF (max {formatSize(maxFileSize)})
               </p>
             </div>
           )}
+          {error && <p className="text-error text-sm font-semibold">{error}</p>}
         </div>
       </div>
     </div>
   );
 };
+
 export default FileUploader;
