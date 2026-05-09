@@ -56,13 +56,13 @@ export default function Home() {
       <section className="hero-panel">
         <div className="hero-grid">
           <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full bg-indigo-100/70 px-4 py-2 text-sm font-semibold text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-200">
+            <div className="inline-flex items-center gap-2 rounded-full bg-indigo-100/70 px-4 py-2 text-sm font-semibold text-indigo-500 dark:bg-indigo-300/15 dark:text-indigo-500">
               Resume AI, smarter decisions
             </div>
             <h1 className="text-5xl font-bold tracking-tight">
               Track your applications and get intelligent resume feedback.
             </h1>
-            <p className="max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300">
+            <p className="max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-500">
               Upload a resume, compare your work, and receive career-focused
               improvements from our AI assistant.
             </p>
@@ -73,11 +73,17 @@ export default function Home() {
               >
                 Upload Resume
               </Link>
+              <Link
+                to="/wipe"
+                className="secondary-button w-fit text-lg font-semibold"
+              >
+                Wipe Data
+              </Link>
             </div>
           </div>
           <div className="hero-preview">
             <img
-              src="/assets/images/bg-main.svg"
+              src="/assets/images/resume_03.png"
               alt="Resume overview"
               className="object-cover w-full h-full"
             />
@@ -87,11 +93,15 @@ export default function Home() {
 
       <section className="main-section">
         <div className="page-heading py-16">
-          <h2>Track Your Work</h2>
+          <h2 className="text-3xl font-bold">Track Your Work</h2>
           {!loadingResumes && resumes?.length === 0 ? (
-            <h3>No resumes found. Upload your first resume to get feedback.</h3>
+            <h3 className="text-2xl font-semibold mt-1">
+              No resumes found. Upload your first resume to get feedback.
+            </h3>
           ) : (
-            <h3>Review your submissions and check AI-powered feedback.</h3>
+            <h3 className="text-2xl font-semibold ">
+              Review your submissions and check AI-powered feedback.
+            </h3>
           )}
         </div>
         {loadingResumes && (

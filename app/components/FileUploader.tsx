@@ -53,10 +53,10 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
               <img src="/assets/images/pdf.png" alt="pdf" className="size-10" />
               <div className="flex items-center space-x-3">
                 <div>
-                  <p className="text-sm font-medium text-gray-700 truncate max-w-xs">
+                  <p className="text-sm font-medium truncate max-w-xs">
                     {file.name}
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-muted">
                     {formatSize(file.size)}
                   </p>
                 </div>
@@ -88,13 +88,13 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
                   className="size-20"
                 />
               </div>
-              <p className="text-lg text-gray-500">
+              <p className="text-lg text-muted">
                 <span className="font-semibold">
                   {isDragActive ? "Drop your resume" : "Click to upload"}
                 </span>{" "}
                 {!isDragActive && "or drag and drop"}
               </p>
-              <p className="text-lg text-gray-500">
+              <p className="text-lg text-muted">
                 PDF (max {formatSize(maxFileSize)})
               </p>
             </div>

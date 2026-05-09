@@ -33,6 +33,9 @@ const Navbar = () => {
         <Link to="/" className="nav-link">
           Home
         </Link>
+        <Link to="/wipe" className="nav-link">
+          Wipe Data
+        </Link>
       </div>
 
       <div className="flex items-center gap-3">
